@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/AcceptedHelper/2021/03/18/post/"/>
+    <url>/AcceptedHelper/2021/03/18/post/</url>
+    
+    <content type="html"><![CDATA[<h2 id="第一篇用以测试"><a href="#第一篇用以测试" class="headerlink" title="第一篇用以测试"></a>第一篇用以测试</h2><h3 id="一、-下面是一段C-代码"><a href="#一、-下面是一段C-代码" class="headerlink" title="一、 下面是一段C++代码"></a>一、 下面是一段C++代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Hello World!&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="二、-下面是一段表格"><a href="#二、-下面是一段表格" class="headerlink" title="二、 下面是一段表格"></a>二、 下面是一段表格</h3><table><thead><tr><th align="center">0</th><th align="center">1</th><th align="center">2</th><th align="center">3</th><th align="center">4</th></tr></thead><tbody><tr><td align="center">x</td><td align="center">x</td><td align="center">x</td><td align="center">x</td><td align="center">x</td></tr></tbody></table><h3 id="三、-下面是一段-Latex"><a href="#三、-下面是一段-Latex" class="headerlink" title="三、 下面是一段 Latex"></a>三、 下面是一段 Latex</h3><p>$$E= mc^2$$</p><h3 id="四、下面是一张图片"><a href="#四、下面是一张图片" class="headerlink" title="四、下面是一张图片"></a>四、下面是一张图片</h3><p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP-ciAYVH8UlH3ZaZC3NkN3ow9CrG36O5crg&usqp=CAU"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>测试</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>测试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
