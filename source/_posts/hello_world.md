@@ -1,10 +1,10 @@
 ---
 title: Hello World
 categories: 测试
+index_img: /img/hello_world/top.png
 date: 2021-03-18 23:34:55
 tags: 测试
 Math: true
-cover: 'https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imgQuietView.png'
 ---
 
 ## 第一篇用以测试
