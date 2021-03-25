@@ -4,9 +4,47 @@
   
   
   <entry>
+    <title>test</title>
+    <link href="/AcceptedHelper/2021/03/25/test/"/>
+    <url>/AcceptedHelper/2021/03/25/test/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ELF头简介</title>
+    <link href="/AcceptedHelper/2021/03/23/Readelf/"/>
+    <url>/AcceptedHelper/2021/03/23/Readelf/</url>
+    
+    <content type="html"><![CDATA[<p>​    在linux中我们常用readelf指令来读取ELF (Executable and Linkable Format) 文件中的信息，本文主要介绍ELF头的基本信息</p><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Elf-layout--en.svg/260px-Elf-layout--en.svg.png" alt="ELF文件结构"></p><h3 id="ELF头"><a href="#ELF头" class="headerlink" title="ELF头"></a>ELF头</h3><p>elf头是位于elf文件的头部，里面存储着一些机器和该ELF文件的基本信息。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>   e_ident[EI_NIDENT];<br>        Elf64_Half      e_type;<br>        Elf64_Half      e_machine;<br>        Elf64_Word      e_version;<br>        Elf64_Addr      e_entry;<br>        Elf64_Off       e_phoff;<br>        Elf64_Off       e_shoff;<br>        Elf64_Word      e_flags;<br>        Elf64_Half      e_ehsize;<br>        Elf64_Half      e_phentsize;<br>        Elf64_Half      e_phnum;<br>        Elf64_Half      e_shentsize;<br>        Elf64_Half      e_shnum;<br>        Elf64_Half      e_shstrndx;<br>&#125; Elf64_Ehdr;<br></code></pre></td></tr></table></figure><p>我们分别介绍其含义</p><hr><h4 id="1、e-ident"><a href="#1、e-ident" class="headerlink" title="1、e_ident"></a>1、e_ident</h4><ul><li><strong>长度：16字节</strong></li><li><strong>简介：包含着文件和操作系统信息</strong></li><li><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosklimwgzj30m00fmq55.jpg" style="zoom:50%;" /></li></ul><h5 id="Magic-Num-e-ident-0-3"><a href="#Magic-Num-e-ident-0-3" class="headerlink" title="Magic Num - e_ident[0:3]"></a>Magic Num - e_ident[0:3]</h5><p>​    前四个字节包含着一个 magic number，表示该文件是一个 ELF 文件</p><h5 id="EI-Class-e-ident-4"><a href="#EI-Class-e-ident-4" class="headerlink" title="EI_Class - e_ident[4]"></a>EI_Class - e_ident[4]</h5><p>​    指示文件类型，是ELF32还是ELF64位</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskl3oqhyj30dq05qq3h.jpg" style="zoom:50%;" /><h5 id="EI-DATA-e-ident-5"><a href="#EI-DATA-e-ident-5" class="headerlink" title="EI_DATA - e_ident[5]"></a>EI_DATA - e_ident[5]</h5><p>​    指示文件的编码方式，是大端法还是小端法</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskkp5pdjj30fy05ggm5.jpg" style="zoom:50%;" /><p>​    <strong>ELFDATA2LSB - 小端法</strong></p><p>​    <strong>ELFDATA2MSB - 大端法</strong></p><h5 id="EI-Version-e-ident-6"><a href="#EI-Version-e-ident-6" class="headerlink" title="EI_Version - e_ident[6]"></a>EI_Version - e_ident[6]</h5><p>​    标识ELF Version, 该值等于EV_CURRENT，目前为1</p><h5 id="EI-OSABI-e-ident-7"><a href="#EI-OSABI-e-ident-7" class="headerlink" title="EI_OSABI - e_ident[7]"></a>EI_OSABI - e_ident[7]</h5><p>​    表示着该文件运行的操作系统</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskk8xx2wj30oi0jmadb.jpg" alt="操作系统类型对应" style="zoom:50%;" /><h5 id="EI-ABIVERSION-e-ident-8"><a href="#EI-ABIVERSION-e-ident-8" class="headerlink" title="EI_ABIVERSION - e_ident[8]"></a>EI_ABIVERSION - e_ident[8]</h5><p>​    标志着 ABI （应用二进制接口）的版本，ABI相当于硬件层级的API（见下图）</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosknnji29j31400u0qd8.jpg" alt="ABI解释" style="zoom:40%;" /><h5 id="EI-PAD-e-ident-8-15"><a href="#EI-PAD-e-ident-8-15" class="headerlink" title="EI_PAD - e_ident[8:15]"></a>EI_PAD - e_ident[8:15]</h5><p>​    填充位，用零填充用以对齐，可以预留给未来使用</p><h4 id="2、e-type"><a href="#2、e-type" class="headerlink" title="2、e_type"></a>2、e_type</h4><ul><li><p><strong>长度：2字节</strong></p></li><li><p><strong>简介：</strong>指示文件类型</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm36oov3j30he0da40a.jpg" style="zoom:50%;" /></li></ul><p>​    </p><h4 id="3、e-machine"><a href="#3、e-machine" class="headerlink" title="3、e_machine"></a>3、e_machine</h4><ul><li><p><strong>长度：2字节</strong></p></li><li><p><strong>简介：</strong>指示机器类型</p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm42l3lxj30u00x2wkc.jpg" alt="部分机器类型" style="zoom:50%;" /></li></ul><h4 id="4、e-version"><a href="#4、e-version" class="headerlink" title="4、e_version"></a>4、e_version</h4><p>​    <strong>长度：4字节</strong></p><p>​    <strong>简介：指示文件版本</strong></p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm8c0knij30dk04gglx.jpg" style="zoom:50%;" /><h4 id="5、e-entry"><a href="#5、e-entry" class="headerlink" title="5、e_entry"></a>5、e_entry</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p><p>​    <strong>简介：进程开始的虚拟地址</strong></p><h4 id="6、e-phoff"><a href="#6、e-phoff" class="headerlink" title="6、e_phoff"></a>6、e_phoff</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p><p>​    <strong>简介：指向程序头部表的开始</strong>    </p><h4 id="7、e-shoff"><a href="#7、e-shoff" class="headerlink" title="7、e_shoff"></a>7、e_shoff</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p><p>​    <strong>简介：指向节头部表的开始</strong>    </p><h4 id="8、e-flags"><a href="#8、e-flags" class="headerlink" title="8、e_flags"></a>8、e_flags</h4><p>​    <strong>长度：4字节</strong></p><p>​    <strong>简介：意义取决于目标架构</strong>    </p><h4 id="9、e-ehsize"><a href="#9、e-ehsize" class="headerlink" title="9、e_ehsize"></a>9、e_ehsize</h4><p>​    <strong>长度：2字节</strong>    </p><p>​    <strong>简介：该文件头部的大小</strong></p><h4 id="10、e-phentsize"><a href="#10、e-phentsize" class="headerlink" title="10、e_phentsize"></a>10、e_phentsize</h4><p>​    <strong>长度：2字节</strong>    </p><p><strong>简介：程序头部的大小</strong>    </p><h4 id="11、e-phnum"><a href="#11、e-phnum" class="headerlink" title="11、e_phnum"></a>11、e_phnum</h4><p>​    <strong>长度：2字节</strong>    </p><p>​    <strong>简介：程序头部的条目数</strong></p><h4 id="12、e-shentsize"><a href="#12、e-shentsize" class="headerlink" title="12、e_shentsize"></a>12、e_shentsize</h4><p>​    <strong>长度：2字节</strong>    </p><p>​    <strong>简介：节头部表的大小</strong></p><h4 id="13、e-shnum"><a href="#13、e-shnum" class="headerlink" title="13、e_shnum"></a>13、e_shnum</h4><p>​    <strong>长度：2字节</strong>    </p><p>​    <strong>简介：节头部表的条目数</strong></p><h4 id="14、e-shstrndx"><a href="#14、e-shstrndx" class="headerlink" title="14、e_shstrndx"></a>14、e_shstrndx</h4><p>​    <strong>长度：2字节</strong>    </p><p>​    <strong>简介：节头部表的条目和其位置 (idx) 的对应关系</strong></p><hr><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>[1] <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">https://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></p><p>[2] <a href="https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html">https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>ICS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
-    <link href="/AcceptedHelper/2021/03/18/post/"/>
-    <url>/AcceptedHelper/2021/03/18/post/</url>
+    <link href="/AcceptedHelper/2021/03/18/hello_world/"/>
+    <url>/AcceptedHelper/2021/03/18/hello_world/</url>
     
     <content type="html"><![CDATA[<h2 id="第一篇用以测试"><a href="#第一篇用以测试" class="headerlink" title="第一篇用以测试"></a>第一篇用以测试</h2><h3 id="一、-下面是一段C-代码"><a href="#一、-下面是一段C-代码" class="headerlink" title="一、 下面是一段C++代码"></a>一、 下面是一段C++代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Hello World!&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="二、-下面是一段表格"><a href="#二、-下面是一段表格" class="headerlink" title="二、 下面是一段表格"></a>二、 下面是一段表格</h3><table><thead><tr><th align="center">0</th><th align="center">1</th><th align="center">2</th><th align="center">3</th><th align="center">4</th></tr></thead><tbody><tr><td align="center">x</td><td align="center">x</td><td align="center">x</td><td align="center">x</td><td align="center">x</td></tr></tbody></table><h3 id="三、-下面是一段-Latex"><a href="#三、-下面是一段-Latex" class="headerlink" title="三、 下面是一段 Latex"></a>三、 下面是一段 Latex</h3><p>$$E= mc^2$$</p><h3 id="四、下面是一张图片"><a href="#四、下面是一张图片" class="headerlink" title="四、下面是一张图片"></a>四、下面是一张图片</h3><p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP-ciAYVH8UlH3ZaZC3NkN3ow9CrG36O5crg&usqp=CAU"></p>]]></content>
     

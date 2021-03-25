@@ -37,6 +37,10 @@
 
 <!-- 自定义样式保持在最底部 -->
 
+  
+<link rel="stylesheet" href="/AcceptedHelper/css/custom.css">
+
+
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
@@ -48,7 +52,7 @@
 
 
 <body>
-  <header style="height: 55vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,10 +146,10 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/AcceptedHelper/img/default.png') no-repeat center center;
+         style="background: url('/AcceptedHelper/img/banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.2)">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="19CS学习人们的聚居地">
               
@@ -157,6 +161,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -166,7 +174,7 @@
     
       <div class="container nopadding-x-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
@@ -180,11 +188,108 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/AcceptedHelper/2021/03/18/post/">Hello World</a>
+        <a href="/AcceptedHelper/2021/03/25/test/">test</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/AcceptedHelper/2021/03/18/post/">
+        <a href="/AcceptedHelper/2021/03/25/test/">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 14:22" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/AcceptedHelper/2021/03/23/Readelf/" target="_self">
+          <img src="/AcceptedHelper/img/ICS/binary.gif" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="ELF头简介">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/AcceptedHelper/2021/03/23/Readelf/">ELF头简介</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/AcceptedHelper/2021/03/23/Readelf/">
+          
+          
+            
+          
+          ​    在linux中我们常用readelf指令来读取ELF (Executable and Linkable Format) 文件中的信息，本文主要介绍ELF头的基本信息
+
+ELF头elf头是位于elf文件的头部，里面存储着一些机器和该ELF文件的基本信息。
+12345678910111213141516typedef struct &#123;        unsigned char   
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-23 11:48" pubdate>
+              2021-03-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/AcceptedHelper/categories/ICS/">ICS</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/AcceptedHelper/tags/Linker/">Linker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/AcceptedHelper/2021/03/18/hello_world/" target="_self">
+          <img src="/AcceptedHelper/img/hello_world/top.png" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="Hello World">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/AcceptedHelper/2021/03/18/hello_world/">Hello World</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/AcceptedHelper/2021/03/18/hello_world/">
           
           
             
