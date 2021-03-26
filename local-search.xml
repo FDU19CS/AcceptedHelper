@@ -4,13 +4,25 @@
   
   
   <entry>
-    <title>test</title>
-    <link href="/AcceptedHelper/2021/03/25/test/"/>
-    <url>/AcceptedHelper/2021/03/25/test/</url>
+    <title>离散数学作业答案</title>
+    <link href="/AcceptedHelper/2021/03/25/answer_of_discrete_math/"/>
+    <url>/AcceptedHelper/2021/03/25/answer_of_discrete_math/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>此处的答案为2020年春网课学期助教所发布的答案，可能与今年布置的作业有所出入，请同学们务必<strong>不要外传</strong>。第12章和13章的答案如下:</p><div class="row">    <embed src="https://cdn.jsdelivr.net/gh/FDU19CS/AcceptedHelper@hexo/source/_posts/answer_of_discrete_math/discrete_math_12_13.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
     
     
+    <categories>
+      
+      <category>离散数学</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>离散数学</tag>
+      
+    </tags>
     
   </entry>
   
