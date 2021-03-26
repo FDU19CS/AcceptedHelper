@@ -627,11 +627,11 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo
-    type: disqus
+    type: utterances
 
 
 #---------------------------
@@ -647,12 +647,10 @@ post:
 # Based on GitHub Issues
 # See: https://utteranc.es
 utterances:
-  repo:
-  issue_term: pathname
-  label: utterances
-  theme: github-light
-  theme_dark: github-dark
-  crossorigin: anonymous
+  repo: "FDU19CS/Comments_utterances"
+  issue-term: "title"
+  theme: "github-light"
+  crossorigin: "anonymous"
 
 # Disqus
 # 基于第三方的服务，国内用户直接使用容易被墙，建议配合 Disqusjs
@@ -710,7 +708,7 @@ valine:
 # A comment plugin with backend derived from Valine
 # See: https://waline.js.org/
 waline:
-  serverURL: ''
+  serverURL: 'https://fdu19cs.github.io/AcceptedHelper/'
   placeholder: 说点什么
   path: window.location.pathname
   avatar: retro
