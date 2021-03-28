@@ -3,7 +3,7 @@ title: ELF头简介
 date: 2021-03-23 11:48:36
 index_img: /img/ICS/binary.gif
 category: [ICS]
-tags: [Linker]
+tags: [谢子飏]
 ---
 
 ​	在linux中我们常用readelf指令来读取ELF (Executable and Linkable Format) 文件中的信息，本文主要介绍ELF头的基本信息

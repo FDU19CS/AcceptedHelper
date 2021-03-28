@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "hexo": "^5.4.0",
+    "hexo-author": "^1.1.2",
     "hexo-cli": "^4.2.0",
     "hexo-deployer-git": "^3.0.0",
     "hexo-generator-archive": "^1.0.0",
