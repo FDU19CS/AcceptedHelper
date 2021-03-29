@@ -15,10 +15,10 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="FDU19CS">
+  <meta name="author" content="Jack_Wang">
   <meta name="keywords" content="">
   
-  <title>ELF头简介 - AcceptedHelper</title>
+  <title>ICS-linking-hw2 - AcceptedHelper</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -167,9 +167,9 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="ELF头简介">
+            <span class="h2" id="subtitle" title="ICS-linking-hw2">
               
-                ELF头简介
+                ICS-linking-hw2
               
             </span>
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-23 11:48" pubdate>
-        2021年3月23日 中午
+      <time datetime="2021-03-29 22:48" pubdate>
+        2021年3月29日 晚上
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      552 字
+      1.3k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      22
        分钟
     </span>
   
@@ -239,78 +239,97 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ELF头简介</h1>
+            <h1 style="display: none">ICS-linking-hw2</h1>
             
             <div class="markdown-body">
-              <p>​    在linux中我们常用readelf指令来读取ELF (Executable and Linkable Format) 文件中的信息，本文主要介绍ELF头的基本信息</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Elf-layout--en.svg/260px-Elf-layout--en.svg.png" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="ELF文件结构"></p>
-<h3 id="ELF头"><a href="#ELF头" class="headerlink" title="ELF头"></a>ELF头</h3><p>elf头是位于elf文件的头部，里面存储着一些机器和该ELF文件的基本信息。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>   e_ident[EI_NIDENT];<br>        Elf64_Half      e_type;<br>        Elf64_Half      e_machine;<br>        Elf64_Word      e_version;<br>        Elf64_Addr      e_entry;<br>        Elf64_Off       e_phoff;<br>        Elf64_Off       e_shoff;<br>        Elf64_Word      e_flags;<br>        Elf64_Half      e_ehsize;<br>        Elf64_Half      e_phentsize;<br>        Elf64_Half      e_phnum;<br>        Elf64_Half      e_shentsize;<br>        Elf64_Half      e_shnum;<br>        Elf64_Half      e_shstrndx;<br>&#125; Elf64_Ehdr;<br></code></pre></td></tr></table></figure>
+              <h1 id="ICS作业-链接2参考"><a href="#ICS作业-链接2参考" class="headerlink" title="ICS作业-链接2参考"></a>ICS作业-链接2参考</h1><h2 id="7-10"><a href="#7-10" class="headerlink" title="7.10"></a>7.10</h2><p>A.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ p.o libx.a<br></code></pre></td></tr></table></figure>
 
-<p>我们分别介绍其含义</p>
-<hr>
-<h4 id="1、e-ident"><a href="#1、e-ident" class="headerlink" title="1、e_ident"></a>1、e_ident</h4><ul>
-<li><strong>长度：16字节</strong></li>
-<li><strong>简介：包含着文件和操作系统信息</strong></li>
-<li><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosklimwgzj30m00fmq55.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" /></li>
+<p>B.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ p.o libx.a liby.a libx.a<br></code></pre></td></tr></table></figure>
+
+<p>C.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ p.o libx.a liby.a libx.a libz.a<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-11"><a href="#7-11" class="headerlink" title="7.11"></a>7.11</h2><p>因为有.BSS区域，该区域在可执行文件中并不分配空间；而在加载入内存时进行分配，因此要预留出0x230字节。</p>
+<h2 id="7-12"><a href="#7-12" class="headerlink" title="7.12"></a>7.12</h2><p>A.</p>
+<p>$*refptr = ADDR(r.symbol)+r.addend-refaddr$</p>
+<p>$=0x4004f8-4-(0x4004e0+0xa)=0xa$</p>
+<p>B.</p>
+<p>$*refptr = ADDR(r.symbol)+r.addend-refaddr$</p>
+<p>$=0x400500-4-(0x4004d0+0xa)=0x22$</p>
+<h2 id="7-13"><a href="#7-13" class="headerlink" title="7.13"></a>7.13</h2><h3 id="A"><a href="#A" class="headerlink" title="A."></a>A.</h3><h4 id="寻找libc-a和libm-a"><a href="#寻找libc-a和libm-a" class="headerlink" title="寻找libc.a和libm.a"></a>寻找libc.a和libm.a</h4><p>使用如下的命令，找到库的位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">gcc --print-file-name=libc.a<br>gcc --print-file-name=libm.a<br></code></pre></td></tr></table></figure>
+
+<p>得出这两个文件均在<code>/usr/lib/aarch64-linux-gnu</code>目录下</p>
+<h4 id="查找有多少个Object-Files"><a href="#查找有多少个Object-Files" class="headerlink" title="查找有多少个Object Files"></a>查找有多少个Object Files</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/lib/aarch64-linux-gnu<br>ar -t libc.a | wc -l<br>ar -t libm.a | wc -l<br></code></pre></td></tr></table></figure>
+
+<p>得出结论，在libc.a下有1616个Object file，在libm.a下有576个Object file</p>
+<h3 id="B"><a href="#B" class="headerlink" title="B."></a>B.</h3><p>他们产生的二进制文件是不同的，-g会携带更多的debug和符号信息。</p>
+<p>使用如下命令即可看出他们之间的差别</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">xxd main&gt;main.binary<br>xxd maing&gt;maing.binary<br>colordiff -y main.binary maing.binary<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Outsider565/ImageBed@master/20210329221556.png" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<p>事实上，添加的部分为debug section，可以用readelf读出来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">readelf -wi main # No output<br>readelf -wi maing<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">i<br>=<span class="hljs-built_in">info</span><br></code></pre></td></tr></table></figure>
+
+<p>Displays the contents of the ‘.debug_info’ section. Note: the output from this option can also be restricted by the use of the –dwarf-depth and –dwarf-start options.</p>
+</blockquote>
+<h4 id="C"><a href="#C" class="headerlink" title="C."></a>C.</h4><p>使用ldd分析任意一个可执行文件，可看出在我的电脑上(Ubuntu20.04 aarch64)，动态链接库如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">ldd /usr/bin/ls</span>                <br>	linux-vdso.so.1 (0x0000ffff81faf000)<br>	libselinux.so.1 =&gt; /lib/aarch64-linux-gnu/libselinux.so.1 (0x0000ffff81f05000)<br>	libc.so.6 =&gt; /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffff81d92000)<br>	/lib/ld-linux-aarch64.so.1 (0x0000ffff81f7f000)<br>	libpcre2-8.so.0 =&gt; /lib/aarch64-linux-gnu/libpcre2-8.so.0 (0x0000ffff81d04000)<br>	libdl.so.2 =&gt; /lib/aarch64-linux-gnu/libdl.so.2 (0x0000ffff81cf0000)<br>	libpthread.so.0 =&gt; /lib/aarch64-linux-gnu/libpthread.so.0 (0x0000ffff81cc0000)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>linux-vdso.so.1</li>
+<li>libselinux.so.1 =&gt; /lib/aarch64-linux-gnu/libselinux.so.1 </li>
+<li>libc.so.6 =&gt; /lib/aarch64-linux-gnu/libc.so.6</li>
+<li>/lib/ld-linux-aarch64.so.1</li>
+<li>libpcre2-8.so.0 =&gt; /lib/aarch64-linux-gnu/libpcre2-8.so.0 </li>
+<li>libdl.so.2 =&gt; /lib/aarch64-linux-gnu/libdl.so.2</li>
+<li>libpthread.so.0 =&gt; /lib/aarch64-linux-gnu/libpthread.so.0 </li>
 </ul>
-<h5 id="Magic-Num-e-ident-0-3"><a href="#Magic-Num-e-ident-0-3" class="headerlink" title="Magic Num - e_ident[0:3]"></a>Magic Num - e_ident[0:3]</h5><p>​    前四个字节包含着一个 magic number，表示该文件是一个 ELF 文件</p>
-<h5 id="EI-Class-e-ident-4"><a href="#EI-Class-e-ident-4" class="headerlink" title="EI_Class - e_ident[4]"></a>EI_Class - e_ident[4]</h5><p>​    指示文件类型，是ELF32还是ELF64位</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskl3oqhyj30dq05qq3h.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
+<h2 id="补充习题"><a href="#补充习题" class="headerlink" title="补充习题"></a>补充习题</h2><h3 id="1-补充源码"><a href="#1-补充源码" class="headerlink" title="1.补充源码"></a>1.补充源码</h3><p>源码和Makefile见附带的文件</p>
+<p>编译成功后的截图如下</p>
+<img src="https://cdn.jsdelivr.net/gh/Outsider565/ImageBed@master/20210329195524.png" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
 
-<h5 id="EI-DATA-e-ident-5"><a href="#EI-DATA-e-ident-5" class="headerlink" title="EI_DATA - e_ident[5]"></a>EI_DATA - e_ident[5]</h5><p>​    指示文件的编码方式，是大端法还是小端法</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskkp5pdjj30fy05ggm5.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
+<h3 id="2-手动编译"><a href="#2-手动编译" class="headerlink" title="2. 手动编译"></a>2. 手动编译</h3><p>使用了两种方法，第一种直接使用<code>gcc -v</code>的编译参数，第二种使用更简单的手动链接</p>
+<h4 id="gcc-v式的"><a href="#gcc-v式的" class="headerlink" title="gcc -v式的"></a>gcc -v式的</h4><p><img src="https://cdn.jsdelivr.net/gh/Outsider565/ImageBed@master/20210329200556.png" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<p>能正常编译并运行</p>
+<h4 id="手动链接式的"><a href="#手动链接式的" class="headerlink" title="手动链接式的"></a>手动链接式的</h4><p>在我们进行链接之前，需要先解释各个系统库有什么用，才能进行选择性的简化链接</p>
+<ul>
+<li>libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3496d10000) - C标准库动态共享对象</li>
+<li>/lib64/ld-linux-x86-64.so.2 (0x00007f3497303000) - 动态链接器/加载器</li>
+<li>crt1.o：包含入口函数_start(该函数执行了上一节所描述的整个程序执行过程)，以及未定义的符号__libc_start_main、main</li>
+<li>crti.o: 提供.init节和.fini节的序言(function prologs)</li>
+<li>crtn.o: 提供.init节和.fini节的尾言(function epilogs)</li>
+<li>crtbegin.o: 提供构造函数的首地址(但在本题中，因为没有构造函数，因此不需要链接)</li>
+<li>crtend.o: 提供析构函数的首地址(同上)</li>
+</ul>
+<p>具体到本题中，使用如下命令即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">crt1.o=/usr/lib/x86_64-linux-gnu/crt1.o<br>crti.o=/usr/lib/x86_64-linux-gnu/crti.o<br>crtn.o=/usr/lib/x86_64-linux-gnu/crtn.o<br>crtbeginS.o=/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o<br>crtendS.o=/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o<br>ld.so=/lib64/ld-linux-x86-64.so.2<br>libc.so=/usr/lib/x86_64-linux-gnu/libc.so<br>ld -dynamic-linker $(ld.so) -o main $(crt1.o) $(crti.o) main.o BubbleSort.o add.o printResult.o $(libc.so) $(crtn.o)<br></code></pre></td></tr></table></figure>
 
-<p>​    <strong>ELFDATA2LSB - 小端法</strong></p>
-<p>​    <strong>ELFDATA2MSB - 大端法</strong></p>
-<h5 id="EI-Version-e-ident-6"><a href="#EI-Version-e-ident-6" class="headerlink" title="EI_Version - e_ident[6]"></a>EI_Version - e_ident[6]</h5><p>​    标识ELF Version, 该值等于EV_CURRENT，目前为1</p>
-<h5 id="EI-OSABI-e-ident-7"><a href="#EI-OSABI-e-ident-7" class="headerlink" title="EI_OSABI - e_ident[7]"></a>EI_OSABI - e_ident[7]</h5><p>​    表示着该文件运行的操作系统</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1goskk8xx2wj30oi0jmadb.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="操作系统类型对应" style="zoom:50%;" />
-
-<h5 id="EI-ABIVERSION-e-ident-8"><a href="#EI-ABIVERSION-e-ident-8" class="headerlink" title="EI_ABIVERSION - e_ident[8]"></a>EI_ABIVERSION - e_ident[8]</h5><p>​    标志着 ABI （应用二进制接口）的版本，ABI相当于硬件层级的API（见下图）</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosknnji29j31400u0qd8.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="ABI解释" style="zoom:40%;" />
-
-<h5 id="EI-PAD-e-ident-8-15"><a href="#EI-PAD-e-ident-8-15" class="headerlink" title="EI_PAD - e_ident[8:15]"></a>EI_PAD - e_ident[8:15]</h5><p>​    填充位，用零填充用以对齐，可以预留给未来使用</p>
-<h4 id="2、e-type"><a href="#2、e-type" class="headerlink" title="2、e_type"></a>2、e_type</h4><ul>
-<li><p><strong>长度：2字节</strong></p>
+<h3 id="3-OBJDUMP进行反汇编"><a href="#3-OBJDUMP进行反汇编" class="headerlink" title="3.OBJDUMP进行反汇编"></a>3.OBJDUMP进行反汇编</h3><p>使用<code>objdump -S main.o &gt; main.S</code>将反编译形成的汇编码写入<code>main.S</code>文件中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Outsider565/ImageBed@master/20210329201203.png" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<h3 id="4-生成调试信息后，使用GDB进行调试"><a href="#4-生成调试信息后，使用GDB进行调试" class="headerlink" title="4. 生成调试信息后，使用GDB进行调试"></a>4. 生成调试信息后，使用GDB进行调试</h3><p>使用了list, break, start, run, continue, info等多种命令进行了调试，在此处限于截图篇幅，仅截取部分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Outsider565/ImageBed@master/20210329201939.png" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<h3 id="5-相关问题"><a href="#5-相关问题" class="headerlink" title="5. 相关问题"></a>5. 相关问题</h3><ol>
+<li><p>分析同一个源程序在不同机器上生成的可执行目标代码是否相同</p>
+<ol>
+<li>ISA: 在arm处理器和x86处理器上，显然有不同的可执行目标文件代码</li>
+<li>OS：在windows和linux上有不同的寄存器分配规则，在windows64上的函数调用采用<code>RCX</code>,<code>RDX</code>,<code>R8</code>,<code>R9</code>的寄存器调用顺序，在Linux64上采用的函数调用寄存器为<code>RDI</code>,<code>RSI</code>,<code>RDX</code>,<code>RCX</code>,<code>R8</code>,<code>R9</code></li>
+<li>编译器：不同编译器会采用不同的优化策略，生成的可执行目标代码可能不同</li>
+</ol>
 </li>
-<li><p><strong>简介：</strong>指示文件类型</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm36oov3j30he0da40a.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" /></li>
-</ul>
-<p>​    </p>
-<h4 id="3、e-machine"><a href="#3、e-machine" class="headerlink" title="3、e_machine"></a>3、e_machine</h4><ul>
-<li><p><strong>长度：2字节</strong></p>
+<li><p>你能在可执行目标文件中找出函数printf ()对应的机器代码段吗？能的话，请标示出来。</p>
+<p>不能，printf函数所对应的机器代码段在libc.so中，是在运行时调用的，因此无法找到。</p>
+<p>事实上，的确有printf@plt（Procedure linkage table)这一函数，但这仅仅是一个找到真实printf代码的stub</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">0000000000000710 &lt;printf@plt&gt;:<br> 710:	ff 25 9a 18 20 00    	jmpq   *0x20189a(%rip)        # 201fb0 &lt;printf@GLIBC_2.2.5&gt;<br> 716:	68 03 00 00 00       	pushq  $0x3<br> 71b:	e9 b0 ff ff ff       	jmpq   6d0 &lt;.plt&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>为什么源程序文件的内容和可执行目标文件的内容完全不同？</p>
+<p>源程序文件的内容为文本文件，是编程语言代码；可执行目标文件为CPU可以运行的二进制代码，自然不同。</p>
 </li>
-<li><p><strong>简介：</strong>指示机器类型</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm42l3lxj30u00x2wkc.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload alt="部分机器类型" style="zoom:50%;" /></li>
-</ul>
-<h4 id="4、e-version"><a href="#4、e-version" class="headerlink" title="4、e_version"></a>4、e_version</h4><p>​    <strong>长度：4字节</strong></p>
-<p>​    <strong>简介：指示文件版本</strong></p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gosm8c0knij30dk04gglx.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
-
-<h4 id="5、e-entry"><a href="#5、e-entry" class="headerlink" title="5、e_entry"></a>5、e_entry</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p>
-<p>​    <strong>简介：进程开始的虚拟地址</strong></p>
-<h4 id="6、e-phoff"><a href="#6、e-phoff" class="headerlink" title="6、e_phoff"></a>6、e_phoff</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p>
-<p>​    <strong>简介：指向程序头部表的开始</strong>    </p>
-<h4 id="7、e-shoff"><a href="#7、e-shoff" class="headerlink" title="7、e_shoff"></a>7、e_shoff</h4><p>​    <strong>长度：4字节（32位）/8字节（64位）</strong></p>
-<p>​    <strong>简介：指向节头部表的开始</strong>    </p>
-<h4 id="8、e-flags"><a href="#8、e-flags" class="headerlink" title="8、e_flags"></a>8、e_flags</h4><p>​    <strong>长度：4字节</strong></p>
-<p>​    <strong>简介：意义取决于目标架构</strong>    </p>
-<h4 id="9、e-ehsize"><a href="#9、e-ehsize" class="headerlink" title="9、e_ehsize"></a>9、e_ehsize</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p>​    <strong>简介：该文件头部的大小</strong></p>
-<h4 id="10、e-phentsize"><a href="#10、e-phentsize" class="headerlink" title="10、e_phentsize"></a>10、e_phentsize</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p><strong>简介：程序头部的大小</strong>    </p>
-<h4 id="11、e-phnum"><a href="#11、e-phnum" class="headerlink" title="11、e_phnum"></a>11、e_phnum</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p>​    <strong>简介：程序头部的条目数</strong></p>
-<h4 id="12、e-shentsize"><a href="#12、e-shentsize" class="headerlink" title="12、e_shentsize"></a>12、e_shentsize</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p>​    <strong>简介：节头部表的大小</strong></p>
-<h4 id="13、e-shnum"><a href="#13、e-shnum" class="headerlink" title="13、e_shnum"></a>13、e_shnum</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p>​    <strong>简介：节头部表的条目数</strong></p>
-<h4 id="14、e-shstrndx"><a href="#14、e-shstrndx" class="headerlink" title="14、e_shstrndx"></a>14、e_shstrndx</h4><p>​    <strong>长度：2字节</strong>    </p>
-<p>​    <strong>简介：节头部表的条目和其位置 (idx) 的对应关系</strong></p>
-<hr>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>[1] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">https://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html">https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html</a></p>
+</ol>
 
             </div>
             <hr>
@@ -328,7 +347,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/AcceptedHelper/tags/%E8%B0%A2%E5%AD%90%E9%A3%8F/">谢子飏</a>
+                      <a class="hover-with-bg" href="/AcceptedHelper/tags/%E7%8E%8B%E5%B0%91%E6%96%87/">王少文</a>
                     
                   </div>
                 
@@ -345,18 +364,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/AcceptedHelper/2021/03/25/answer_of_discrete_math/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">离散数学作业答案</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/AcceptedHelper/2021/03/18/hello_world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/AcceptedHelper/2021/03/28/Code-for-ICS-HW4/">
+                        <span class="hidden-mobile">Code for ICS HW4</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
