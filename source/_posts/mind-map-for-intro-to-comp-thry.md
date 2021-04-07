@@ -10,4 +10,4 @@ index_img: https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=274936136,3
 
 这是计算理论基础前五周的思维导图。(pdf请使用chrome浏览器)
 
-{% pdf %}
+{% pdf https://cdn.jsdelivr.net/gh/FDU19CS/AcceptedHelper@hexo/source/_posts/mind-map-for-intro-to-comp-thry/mind-map-for-intro-to-comp-thry.pdf %}
