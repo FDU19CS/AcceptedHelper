@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/AcceptedHelper/img/favicon.ico">
+  <link rel="icon" href="/AcceptedHelper/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="FDU19CS">
+  <meta name="keywords" content="">
+  
+  <title>Linux 动态内存分配机制详解 - AcceptedHelper</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/AcceptedHelper/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/AcceptedHelper/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/AcceptedHelper/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fdu19cs.github.io","root":"/AcceptedHelper/","version":"1.8.9a","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/AcceptedHelper/js/utils.js" ></script>
+  <script  src="/AcceptedHelper/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/AcceptedHelper/">&nbsp;<strong>AcceptedHelper</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/AcceptedHelper/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux 动态内存分配机制详解">
+              
+                Linux 动态内存分配机制详解
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-21 21:11" pubdate>
+        2021年5月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      53
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux 动态内存分配机制详解</h1>
+            
+            <div class="markdown-body">
+              <p>​    动态内存分配是虚拟内存组织中的核心概念，理解它对于帮助整个linux虚拟内存的组织以及堆上内存分配过程。本文会系统介绍动态内存的分配机制以及内存堆块的组织形式，并最后以 CMU CSAPP Malloc Lab 为例来详细讲解。</p>
+<p><strong>Malloc Lab 代码：<a target="_blank" rel="noopener" href="https://github.com/ZiYang-xie/Malloc_Lab">ZiYang-xie/Malloc_Lab: CMU Malloc Lab Repo (github.com)</a></strong> </p>
+<p>在开始介绍 malloc 机制前，我们先看一下虚拟内存的组织形式。</p>
+<h1 id="【序】虚拟内存组织形式"><a href="#【序】虚拟内存组织形式" class="headerlink" title="【序】虚拟内存组织形式"></a>【序】虚拟内存组织形式</h1><p>​    linux虚拟内存形式安装堆栈形式组织，栈位于内存高地址，分为内核栈和用户栈，增长方向从高到低。而堆位于内存的低地址，是程序员进行动态内存分配的空间，增长方向由低到高。堆和栈中间是共享映射空间，用于共享库在内存中的映射，这样每次如果有不同代码调用相同的共享库，就不需要再次向内存中复制一份副本，节省了时间和空间。</p>
+<p>​    栈内存的更高地址用于存放一些全局数据结构</p>
+<p>​    堆内存的更低地址按地址从低到高放置着代码段（.text）、已分配数据段（.data）、未分配数据段（.bss）。你可能还听说过 COMMON 段专门储存未初始化全局变量，真正的.bss存储未初始化的静态变量以及初始化为0的全局和静态变量 [1]，组织形式如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">SECTIONS &#123; <br>  .text : &#123; *(.text) &#125;<br>  .data : &#123; *(.data) &#125; <br>  .bss :  &#123; *(.bss)  *(COMMON) &#125; <br>&#125; <br></code></pre></td></tr></table></figure>
+
+<p>虚拟内存的大致组成形式如下图所示。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gqr0n9olxfj30e80e0gn3.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<p>​    可以看到代码段从 <em>0x40000000</em> 处开始，从0到0x40000000的内存地址单纯是未被映射，代码段和0地址之间相隔一段距离在早期是为了防止 nullptr 对代码段的修改<em>（此处仅凭记忆，真实性需要进一步验证</em>）。但如今权限设计更加完善，上述意义已不再成立，这就变成了一种约定俗成的规则。</p>
+<p>在了解了虚拟内存的大致组织模式之后，我们便可以开始讲解 Malloc 的基本机制。</p>
+<h1 id="【一】动态内存分配的实现方式"><a href="#【一】动态内存分配的实现方式" class="headerlink" title="【一】动态内存分配的实现方式"></a>【一】动态内存分配的实现方式</h1><p>​    Linux动态内存分配的实现方式是由 mmap, munmap 以及 brk, sbrk 这四个系统函数联合完成的。</p>
+<h2 id="mmap-与-munmap"><a href="#mmap-与-munmap" class="headerlink" title="mmap 与 munmap"></a>mmap 与 munmap</h2><p><strong>mmap</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">mmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *addr, <span class="hljs-keyword">size_t</span> length, <span class="hljs-keyword">int</span> prot, <span class="hljs-keyword">int</span> flags,</span></span><br><span class="hljs-function"><span class="hljs-params">           <span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">off_t</span> offset)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>mmap 创建一个新的虚拟内存空间和文件设备之间的映射。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gqr27vczrhj30jd0a9tah.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<p>​    其中 addr 代表分配开始地址，fd是相应文件描述符，len是指文件存储部分映射的长度，offset指的是从文件头开始offset距离开始分配。</p>
+<ul>
+<li>prot包含权限位</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">PROT_EXEC <span class="hljs-comment">// 可执行</span><br>PROT_READ <span class="hljs-comment">// 可读</span><br>PROT_WRITE <span class="hljs-comment">// 可写</span><br>PROT_NONE <span class="hljs-comment">// 不可访问</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Flags 表示映射对象类型</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">MAP_ANON <span class="hljs-comment">// 匿名请求二进制零的</span><br>MAP_PRIVATE <span class="hljs-comment">// 私有的</span><br>MAP_SHARED <span class="hljs-comment">// 共享的</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>munmap</strong></p>
+<p>取消相应地址内存块的映射</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">munmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *addr, <span class="hljs-keyword">size_t</span> length)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>很好理解取消开始地址为 addr 长度为 length 的内存映射。</p>
+<h2 id="brk-与-sbrk"><a href="#brk-与-sbrk" class="headerlink" title="brk 与 sbrk"></a>brk 与 sbrk</h2><p>​    brk, sbrk 用来移动 program break 指向的指针来扩展堆内存，program break 位于堆顶未初始化数据段末尾之后，通过移动 program break 指针来动态控制堆的大小。</p>
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gqri33m8lkj30ic0huq62.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p><strong>brk</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">brk</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *addr)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>​    brk 会在允许的情况下简单的将 program break 设为 addr 地址，来控制堆内存大小。相当于 program break 的绝对移动</p>
+<p><strong>sbrk</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">sbrk</span><span class="hljs-params">(<span class="hljs-keyword">intptr_t</span> increment)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>​    sbrk 会在允许的情况下将 program break 指针加 increment 值，返回扩展前的 program break 地址。当<code>increment</code>为正值时，堆被扩展；为0时，返回当前 program break 的指针；为负值时，堆被收缩。相当于 program break 的相对移动</p>
+<p>​    值得注意的是，当无法扩展时 (申请了大于允许的内存，或碰到了共享内存段)，sbrk会返回 (void *)-1 并且会设置 errorno 为 <strong>ENOMEM</strong>（ENO Memory）</p>
+<h3 id="关于-sbrk-的更多细节"><a href="#关于-sbrk-的更多细节" class="headerlink" title="关于 sbrk 的更多细节"></a>关于 sbrk 的更多细节</h3><p>​    sbrk 实际上是 linux 的一个上古函数，如今大多数内存分配器都倾向于使用 mmap 而不使用 sbrk，是因为 sbrk 是线程不安全的。由于 sbrk 的组织形式是对 program break 的相对移动来进行对扩展，那么对堆块的组织释放方式只能使用 LIFO。假设 sbrk 函数是原子的，在多进程调用时，如果一个进程要释放一个块，且其正好位于结尾program break处，我们选择 increment 为一个负值进行堆收缩（这是正确的）；但在我们还未释放的时候，另一个进程选择分配内存，调用 sbrk。在分配后我们继续进行释放此时我们需要释放的块后增加了一个新块，再调用 sbrk 会导致另一个进程分配的块被释放从而引发错误。</p>
+<p>​    为了解决这个问题，我们也可以自己设计一个进程安全的 sbrk 函数，称为 sbrk_safe</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">sbrk_safe</span><span class="hljs-params">(<span class="hljs-keyword">intptr_t</span> increment, <span class="hljs-keyword">void</span> *expect_top)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>​    其增加了一个参数expect_top，思想很简单，就是在每次调用 sbrk_safe 的时候将选择释放块的内存地址填入 expect_top，函数中验证其是否是在堆顶，如果不是就返回错误。</p>
+<p>​    （另外 sbrk 可能还有其他问题，比如受到 mmap 分配内存和共享内存的阻碍导致内存分配的间断。这里有待进一步研究探讨）</p>
+<h1 id="【二】动态内存分配器的设计"><a href="#【二】动态内存分配器的设计" class="headerlink" title="【二】动态内存分配器的设计"></a>【二】动态内存分配器的设计</h1><p>​        对于堆上的动态内存分配，我们通常将其组织为“块”的模式，一个块就是指一段连续内存地址，而根据其是否被分配数据又被划分为<strong>空闲块</strong>和<strong>分配块</strong>两种。</p>
+<h2 id="序、内存块结构"><a href="#序、内存块结构" class="headerlink" title="序、内存块结构"></a>序、内存块结构</h2><p>​    首先我们需要了解一个简单的技巧，就是如果有空闲块相邻时我们是可以将其进行合并为一个空闲块的，这样一来我们就可以分配更大的内存，并减少内存的碎片程度。注意到由于我们需要对块进行分配和合并，所以我们必须要知道块的<strong>大小信息</strong>和<strong>块的分类</strong>，因而一个内存块中其并不是所有位置都存储着有效信息。以32位系统为例，双字对齐（8 bytes）我们设计一个块的头部一个字大小（4 bytes）放置着块的大小信息和分配信息，由于是双字对齐的，所以块大小的后3位永远是0（1000）, 因此我们用前29位放大小信息，后3位放置分配信息（实际上是最后一位）001表示已分配、000表示空闲。中间放置有效载荷、即数据段，尾部可有一个填充。</p>
+<p>​    最后注意到我们需要对块进行<strong>合并</strong>（在后文中我们会详细讨论合并策略），所以在尾部也放置一个大小和分配标记有利于下一块相邻块快速找到上一块的分配状态和大小来达成向前合并的操作，所以我们在脚部也增加一个字大小（4 bytes）和头部相同的大小分配标记。这个特征称为<strong>边界标记</strong></p>
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gqrjzzz4iaj30go0dwjyj.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:50%;" />
+
+<h2 id="一、内存碎片"><a href="#一、内存碎片" class="headerlink" title="一、内存碎片"></a>一、内存碎片</h2><p>​        关于内存分配，首先我们要有一个直观，在组织过程中我们确实可以简单的每次分配内存都创建一个所需大小的块，但经过频繁的分配释放，很快堆上的整块内存就会被划分为十分杂乱的小块。这种情况称之为内存碎片化，内存碎片化是一个十分严重的问题，其可能导致内存极大的浪费，因此要理解动态内存分配器的设计之前首先我们需要理解内存碎片的概念，来帮助我们更好的设计一个性能更加优良的分配器。</p>
+<p>​    关于内存碎片根据其表现形式可以分为两类，内部碎片和外部碎片。</p>
+<h3 id="内部内存碎片"><a href="#内部内存碎片" class="headerlink" title="内部内存碎片"></a>内部内存碎片</h3><p>​    内部内存碎片可以有一个直观的理解（虽然可能有点夸张），就是如果你仅仅需要 1kb 的内存用于存放数据，但是你申请了 2GB 大小的内存空间用来存这 1kb 的数据，那么里面大部分的内存全部都被浪费掉了，这时候如果你再要申请内存，空闲的内存可能就不够了。这就是内部碎片。</p>
+<p>​    这时候有人可能会问，那么我们之间分配需要分配的内存大小就好了啊？那为什么内部碎片还会产生呢？确实说的很对，。但有时候由于内存对齐需要以及分配器策略等影响我们并不能够直接分配正好就是需求大小的内存块，其产生机制我将会在下文中进一步深入讲解</p>
+<h3 id="外部内存碎片"><a href="#外部内存碎片" class="headerlink" title="外部内存碎片"></a>外部内存碎片</h3><p>​    外部内存碎片的产生主要源于频繁的大小不一的内存分配和释放过程。经过一系列的分配释放，最后整块的内存会被切分成空闲块分配块相互交杂的情况，如下图所示，这时候如果我们想要再分配一个 1000 kb 的数据块，可能所有的空闲块加起来是大于 1000 kb 的但是由于没有一个空闲块是大于 1000 kb 的就会导致内存分配的失败。同时由于内存映射已经建立，重整虚拟内存会导致整个程序到虚拟内存，虚拟内存到物理内存的映射表都需要更改，这种花费是我们无法承受的，所以我们需要设计更好的分配方式尽量避免这种碎片化情况的产生。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqrji3uyl1g30b404l3yd.gif" srcset="/AcceptedHelper/img/loading.gif" lazyload></p>
+<h2 id="二、空闲块组织模式"><a href="#二、空闲块组织模式" class="headerlink" title="二、空闲块组织模式"></a>二、空闲块组织模式</h2><p>​    关于动态内存分配器的设计其有不同的设计策略，而一种最为常见的区分方式是通过空闲块的组织模式来区分不同的分配器，这里简单介绍两种来自 CSAPP 的空闲块组织模式。</p>
+<h3 id="隐式空闲链表"><a href="#隐式空闲链表" class="headerlink" title="隐式空闲链表"></a>隐式空闲链表</h3><p>​    关于隐式空闲链表，它组织内存空闲块的形式非常简单，可以说是根本没有任何组织，我们可以通过遍历所有堆块（因为我们知道每一个堆块的大小）并验证其是否空闲来找到所有空闲块。所以将这种空闲块组织模式成为隐式空闲链表组织模式。</p>
+<ul>
+<li><p><strong>优点：</strong>简单、无需其他数据结构、节省空间</p>
+</li>
+<li><p><strong>缺点：</strong>时间复杂度高，每次寻找空闲块都需要 O(n) 时间复杂度遍历所有堆块</p>
+</li>
+</ul>
+<h3 id="显示空闲链表"><a href="#显示空闲链表" class="headerlink" title="显示空闲链表"></a>显示空闲链表</h3><p>​    关于显示空闲链表，其是通过在空闲块中间添加两个指针分别指向前趋空闲块和后继空闲块，将空闲块串联成一个链表的模式。这时候我们在全局需要存储一个入口指针指向第一个空闲块，因为其显示的将所有空闲块进行串联，所以我们称这种组织模式为显示空闲链表</p>
+<ul>
+<li><strong>优势：</strong>速度快效率高，只需要 O(m) 遍历所有空闲块</li>
+<li><strong>缺点：</strong>组织复杂，且最小块大小较大（空闲块需要多两个指针的大小）</li>
+</ul>
+<p>在实际的动态内存分配器中我们常常使用显示空闲链表的模式，因为相比于它的效率提升，其多出的空间花费是微不足道的。</p>
+<h2 id="三、空闲块适配模式"><a href="#三、空闲块适配模式" class="headerlink" title="三、空闲块适配模式"></a>三、空闲块适配模式</h2><p>​    说完了空闲块组织模式，我们来谈谈常见的空闲块适配模式，为什么要适配空闲块？当然是因为请求分配一个内存大小的时候要找到一个相应合适的内存块，空闲块适配这个概念和前面讲到的内存碎片有着很大的联系，如果我们选的太大那么就会导致内部碎片的产生（如果没有其他分割策略），如果外部碎片太多，那么我们可能根本找不到合适的空闲块。</p>
+<p>接下来我主要介绍三类空闲块组织模式，首次适配（First Fit）、再次适配（Next Fit)和最佳适配（Best Fit）</p>
+<ul>
+<li><strong>首次适配：</strong> 遍历空闲块找到的第一个合适的空闲块就用来分配 （速度快，内存不一定节省）</li>
+<li><strong>再次适配：</strong>不从头找起，从上一次分配的空闲块继续往下找，找到的第一个适合的空闲块就用来分配 （默认了分配内存的大小基本一致，需要依赖于程序的内存分配特点和空闲块大小组织方式，效率不固定）</li>
+<li><strong>最佳适配：</strong>遍历所有空闲块，找到一个在能够符合分配条件下最小的空闲块来最大化减少内部碎片的产生（内存利用率最佳，但效率较低）</li>
+</ul>
+<h2 id="四、空闲块顺序安排"><a href="#四、空闲块顺序安排" class="headerlink" title="四、空闲块顺序安排"></a>四、空闲块顺序安排</h2><p>​    空闲块顺序安排这个概念是归属于显示空闲链表组织模式下的，隐式空闲链表就完全不会有这个概念（因为根本没有组织xs）</p>
+<p>​    下面来讲讲空闲块的顺序安排，其主要有两种组织形式，LIFO 顺序和地址顺序</p>
+<ul>
+<li><strong>LIFO 顺序：</strong>把释放块插入到空闲链表的开始处，结合首次适配策略，我们便每次会分配适合分配大小的最近释放的空闲块。</li>
+</ul>
+<p>由于我们每次都在空闲块链表开头插入新释放的空闲块，其释放能够在常数时间内 O(1) 完成。</p>
+<ul>
+<li><strong>地址顺序：</strong> 我们也可以简单地按地址顺序安排空闲块链表，即让空闲块链表中空闲块地址从低到高排序，这样符合堆的地址增长方式。</li>
+</ul>
+<p>通常情况下地址顺序结合首次适配的方式比LIFO结合首次适配拥有<strong>更高的内存利用率</strong>，这是从实验中得出的</p>
+<h2 id="五、空闲块的存储技术"><a href="#五、空闲块的存储技术" class="headerlink" title="五、空闲块的存储技术"></a>五、空闲块的存储技术</h2><h3 id="分离适配与分段空闲链表（-Segregated-Free-List-）"><a href="#分离适配与分段空闲链表（-Segregated-Free-List-）" class="headerlink" title="分离适配与分段空闲链表（ Segregated Free List ）"></a>分离适配与分段空闲链表（ Segregated Free List ）</h3><p>​    在实际应用中，我们可以对空闲块的组织模式进行一定的大小分类，通过分类的方式，我们可以进一步减少空闲块的索引时间。</p>
+<p><strong>（这里的思想是运用的分层级的思想，这一思想在计算机科学中无处不在，例如数据库中的多级索引，多级页表的组织等，其实际上就是用分组的形式形成层级结构，通过使用更多的空间来换取索引的时间，是典型的空间换时间模式）</strong></p>
+<p>我们将根据空闲块大小的分类得出的不同类称为大小类，通常在一个最简单的应用中，我们可以使用二的幂次来对其进行表示。在实现上，我们可以将其组织为一个叫做分段空闲链表（Segregated Free List）的组织形式（如下图所示）。</p>
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gqrl8pm35nj30wc0u0aj5.jpg" srcset="/AcceptedHelper/img/loading.gif" lazyload style="zoom:40%;" />
+
+<p>​    例如我们将空闲块按二的幂次分为 MAX_ORDER 个大小类，每个 index = i 维护一个链表，连接着一类大小位于 $ 2^{i - 1}$ ~ $2^i$ 的空闲块，这样的组织形式，我们就可以先根据分配需求索引大类的大小，定位之后再进入链表根据适配规则适配空闲块。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>[1] <em>Computer Systems: A Programmer’s Perspective</em>, 3/E (CS:APP3e). Randal E. Bryant and David R. O’Hallaron, Carnegie Mellon University.  Page 469</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://lifecs.likai.org/2010/02/sbrk-is-not-thread-safe.html">Life of a Computer Scientist: sbrk() is not thread safe (likai.org)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/AcceptedHelper/categories/ICS/">ICS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/AcceptedHelper/tags/Malloc/">Malloc</a>
+                    
+                      <a class="hover-with-bg" href="/AcceptedHelper/tags/VM/">VM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/AcceptedHelper/2021/05/22/MallocLab/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Malloc Lab 动态内存分配器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/AcceptedHelper/2021/04/07/mind-map-for-intro-to-comp-thry/">
+                        <span class="hidden-mobile">计算理论基础思维导图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.lazyComments('comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FDU19CS/Comments_utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     FDU <i class="iconfont icon-love"></i> 19CS 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/AcceptedHelper/js/debouncer.js" ></script>
+<script  src="/AcceptedHelper/js/events.js" ></script>
+<script  src="/AcceptedHelper/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/AcceptedHelper/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+  <script  src="/AcceptedHelper/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/AcceptedHelper/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/AcceptedHelper/js/boot.js" ></script>
+
+
+</body>
+</html>

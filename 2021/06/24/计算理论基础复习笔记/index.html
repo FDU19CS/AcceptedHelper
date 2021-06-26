@@ -1,0 +1,853 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/AcceptedHelper/img/favicon.ico">
+  <link rel="icon" href="/AcceptedHelper/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="FDU19CS">
+  <meta name="keywords" content="">
+  
+  <title>计算理论基础复习笔记 - AcceptedHelper</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/AcceptedHelper/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/AcceptedHelper/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/AcceptedHelper/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fdu19cs.github.io","root":"/AcceptedHelper/","version":"1.8.9a","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/AcceptedHelper/js/utils.js" ></script>
+  <script  src="/AcceptedHelper/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/AcceptedHelper/">&nbsp;<strong>AcceptedHelper</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/AcceptedHelper/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/AcceptedHelper/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计算理论基础复习笔记">
+              
+                计算理论基础复习笔记
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-24 17:36" pubdate>
+        2021年6月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算理论基础复习笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="计算理论基础复习笔记"><a href="#计算理论基础复习笔记" class="headerlink" title="计算理论基础复习笔记"></a>计算理论基础复习笔记</h1><p>待更新</p>
+<h2 id="预备知识与基本文法理论（讲义第一章、第二章）"><a href="#预备知识与基本文法理论（讲义第一章、第二章）" class="headerlink" title="预备知识与基本文法理论（讲义第一章、第二章）"></a>预备知识与基本文法理论（讲义第一章、第二章）</h2><p>第一章大部分内容在其他课程里讲过了，新的内容只有：</p>
+<blockquote>
+<p>前缀性质：L 中任何字符串都不是另一个字符串的真前缀</p>
+</blockquote>
+<p>第二章讲了文法的基本概念。</p>
+<blockquote>
+<p><strong>文法</strong> $G$ 是四元组 $(V, T, P, S)$， V 是变元的有限集，T 是终结符有限集，P 是生成式有限集， S 是开始符号。</p>
+</blockquote>
+<blockquote>
+<p>=&gt; 关系为<strong>直接派生</strong>，多步直接派生为<strong>派生</strong>。</p>
+</blockquote>
+<blockquote>
+<p>文法 $G$ 产生的<strong>语言</strong> $L(G)$ 是 S 派生出来的终结符号串的全体。</p>
+</blockquote>
+<blockquote>
+<p>0型文法（短语结构文法 PSG ）：对生成式无限制。</p>
+<p>1型文法（上下文有关文法 CSG ）：每个生成式左侧长度≤右侧长度</p>
+<p>1°型文法（上下文有关文法的另一种形式）：每个生成式，左侧至少包含一个变元，删去该变元后的前缀与后缀（可为空）也是右侧的前缀与后缀。$\alpha_1A\alpha_2 \rarr \alpha1\beta\alpha_2, \beta不为空$，前缀$\alpha_1$和后缀$\alpha_2$即为上下文。</p>
+<p>2型文法（上下文无关文法 CFG ）：每个生成式左侧仅包含一个变元</p>
+<p>3型文法（正规文法 RG ）：每个生成式左侧仅包含一个变元，且右侧必须形如 $a$ 或 $aB$ ，$a \in T \ 或a为空串$</p>
+</blockquote>
+<p>将1型文法转为1°型文法：</p>
+<ol>
+<li>对所有终结符$a$，添加变元$[a]$。</li>
+<li>将原有生成式中所有终结符替换为对应新变元（如将$a$替换为$[a]$）。此时，所有生成式都只含变元。</li>
+<li>对所有终结符$a$，添加生成式$[a]\rarr a$。</li>
+<li>对所有不符合1°型文法的生成式，若左侧为$A_1A_2\ …\ A_n$，右侧为$B_1B_2…B_m$ ，则添加$n$个变元，用新的 $2n$ 个生成式替换这个生成式。新的生成式中：<ul>
+<li>第 $i+1$ 个生成式的左侧是第 $i$ 个生成式的右侧；</li>
+<li>前 $n$ 个生成式将 $A_1A_2…A_n$ 逐渐替换为 $C_1C_2…C_n$，每个生成式替换一个最靠前的 $A$（第一个生成式为$A_1A_2…A_n\rarr C_1A_2…A_n$）；</li>
+<li>接下来的 $n-1$ 个生成式将 $C_1C_2…C_n$ 逐渐替换为 $B_1B_2…B_{n-1}C_n$， 每个生成式替换一个最靠前的 $C$ （第 $n+1$个生成式为$C_1C_2…C_n\rarr B_1C_2…C_n$）；</li>
+<li>最后的生成式将 $C_n$ 替换为 $B_nB_{n+1}…B_m$ 。</li>
+</ul>
+</li>
+</ol>
+<p>2型文法的<strong>派生树</strong>：根节点为 S ；内部节点为变元；某个节点（有标记A）的孩子从左到右收集而成的字符串s，必有$A\rarr s$属于生成式集合（对应<em>直接派生</em>）；<strong>边缘</strong>是叶子节点从左到右收集而成的字符串（对应<em>派生</em>）。派生树可对应一个字符串从 S 开始的派生过程。</p>
+<p><strong>最左派生</strong>：派生过程每一步都只替换最左边的变元。（同理有<strong>最右派生</strong>）</p>
+<p><strong>多义</strong>：某个字符串有两种不同派生过程。</p>
+<h2 id="有穷自动机、正规表达式、正规集（讲义第三、四章，MIT教材第一章）"><a href="#有穷自动机、正规表达式、正规集（讲义第三、四章，MIT教材第一章）" class="headerlink" title="有穷自动机、正规表达式、正规集（讲义第三、四章，MIT教材第一章）"></a>有穷自动机、正规表达式、正规集（讲义第三、四章，MIT教材第一章）</h2><blockquote>
+<p><strong>有穷自动机</strong> （FA） 是五元组 $(Q,\Sigma,\delta,q_0,F)$，分别对应：有穷状态集、有穷输入字符表、转移函数、初始状态、终结状态集。</p>
+<p>转移函数的输入为单个字符，可扩充为字符串。</p>
+<p>FA 接收的字符串 s ：以 s 作为 FA 的输入，状态从初始的 $q_0$ 转移到 F 里的状态。</p>
+</blockquote>
+<h3 id="几种转换"><a href="#几种转换" class="headerlink" title="几种转换"></a>几种转换</h3><ol>
+<li><p>$DFA \rarr Regular\ Expression$</p>
+<p>讲义上的方法是：</p>
+<ul>
+<li><p>如果有 $k$ 个状态，算出 $k^3$ 个正规表达式 $r_{ij}^k$，表示输入串使状态机从状态 i 到 j 中间不经过编号高于 k 的状态。</p>
+</li>
+<li><p>$k = 0$ 时，状态图中若有从状态 i 到状态 j 的箭头，就把箭头上的字符加到集合里。$i == j$ 时，这个集合里还要包含空串。</p>
+</li>
+<li><p>$k \ne 0$ 时，有递推式 $r_{ij}^k = r_{ik}^{k-1}(r_{kk}^{k-1})^*r_{kj}^{k-1} \cup r_{ij}^{k-1}$</p>
+</li>
+</ul>
+<p>MIT 教材上的方法是：</p>
+<ul>
+<li>将 DFA 转为 GNFA （GNFA的转换条件可以是正规表达式）：添加两个状态 s 和 t ，s 为新的初始状态，t 为新的终结状态。s 通过 $\epsilon$ 动作到原有的每个初始状态，原有的每个终结状态通过 $\epsilon$ 动作到 t</li>
+<li>将 GNFA 的状态数缩减到2：下面的 RE 三种四句的反向操作，可将状态数减1</li>
+<li>将 2-state GNFA 转换为 RE：转换条件即为所求</li>
+</ul>
+</li>
+<li><p>$Regular Expression \rarr \epsilon-NFA$</p>
+<p>处理三种类型的子句即可。讲义 p65-p66 的三张图</p>
+<ul>
+<li>$r_1+r_2$：两路分叉、两路归并</li>
+<li>$r_1r_2$：前面的终结状态指向后面的初始状态</li>
+<li>$r_1^*$：终结状态回到初始状态</li>
+</ul>
+</li>
+<li><p>$\epsilon-NFA \rarr NFA$</p>
+<p>讲义 p59</p>
+<p>先检查 $q_0$ 是否为终结状态。</p>
+<p>转移函数取一个闭包。</p>
+</li>
+<li><p>$NFA \rarr DFA$</p>
+<p>讲义 p55</p>
+<p>NFA 中，$\delta(q, a)$ 的结果是一个状态集。建立状态集到状态元组双射，把状态元组看作一个新的状态。将状态元组作为 $\delta$ 的输入，结果为元组中状态作为输入的结果的并集。一直做下去，直到不产生新的状态。</p>
+</li>
+</ol>
+<p>正规文法转为 $\epsilon-NFA$：</p>
+<ul>
+<li>每个变元为状态，每个终结符为输入字符</li>
+<li>转移函数的输入：派生左侧的变元、派生右侧的终结符（或 $\epsilon$）；输出为派生右侧的变元（或终结状态）</li>
+</ul>
+<p>DFA 转为正规文法：同上。</p>
+<h3 id="缩胀定理"><a href="#缩胀定理" class="headerlink" title="缩胀定理"></a>缩胀定理</h3><p><strong>正规集缩胀定理</strong>：A 是正规集，则存在 p (pumping length) 使长度大于等于 p 的 A 中任意 s，可拆成三部分 $s=xyz$，满足：</p>
+<ul>
+<li>$xy^iz\in A, \forall i \ge 0$</li>
+<li>$|y| \gt 0$</li>
+<li>$|xy|\le p$</li>
+</ul>
+<p>（讲义上的定理给 s 和 $xy^iz$ 加了前缀和后缀，移去了最后一个限制。）</p>
+<p>正规集在并、连接、闭包运算（由正规表达式的定义）、补运算（终结状态取补）、交运算（两个 DFA 的状态集、终结状态集取笛卡尔积）、商运算（ 在 R1/R2 中，R1 状态集为 Q，建立 |Q| 个 DFA，分别以 Q 中每个状态为初始状态，检测这些 DFA 交 R2 是否为空）下封闭。这些性质可以用来判定某个集合 C 不是正规集：取已知正规集 A 和已知非正规集 B，使 A 和 C 在某种封闭运算下变为 B，则 C 不是正规集。</p>
+<p>一些判定问题：具有 n 个状态的 FA 有以下性质</p>
+<ul>
+<li>接受集合非空，iff 接受一个长度小于 n 的串</li>
+<li>接受集合无穷，iff 接受一个长度在 [n, 2n) 之间的串</li>
+<li>是否为空、是否无穷、是否等价 是可判定的</li>
+</ul>
+<h3 id="极小化算法"><a href="#极小化算法" class="headerlink" title="极小化算法"></a>极小化算法</h3><blockquote>
+<p>状态的等价：$\forall x \in \Sigma^*, \delta(p,x)\in F\ \lrarr \ \delta(q,x)\in F$</p>
+<p>商自动机：状态集是 Q 的各等价类；自动机和它的商自动机等价</p>
+</blockquote>
+<p>极小化算法：</p>
+<ul>
+<li>对所有状态对 {p, q} 画一个下三角矩阵</li>
+<li>对 $p\in F,q\notin F$ 的 ${p, q}$，在相应位置做标记</li>
+<li>重复此步直到矩阵不再变化：$\exist a\in\Sigma,{\delta(p,a),\delta(q,a)}$ 被标记，则标记 $(p,q)$</li>
+<li>没被标记的状态对是等价的</li>
+</ul>
+<h3 id="Myhill-Nerode-定理"><a href="#Myhill-Nerode-定理" class="headerlink" title="Myhill-Nerode 定理"></a>Myhill-Nerode 定理</h3><blockquote>
+<p>两个 DFA 同构：状态集存在双射，且满足一些性质</p>
+<p>右不变：对于等价关系 R，xRy 可推出 xzRyz</p>
+<p>关于集合 A 的 <code>Myhill-Nerode</code> 关系：右不变、细分A、具有有穷指数</p>
+</blockquote>
+<p><strong>DFA 与 <code>Myhill-Nerode</code> 的关系</strong>：</p>
+<ul>
+<li><p>DFA M $\rarr$ <code>Myhill-Nerode</code> 关系 $R_M$：$xR_My\lrarr\delta(q_0,x)=\delta(q_0,y)$</p>
+</li>
+<li><p><code>Myhill-Nerode</code> 关系 $\rarr$ DFA $M_R$ : $Q = {[x]|x\in\Sigma^*}, q_0 = {[e]}, F = {[x]|x\in A}, \delta([x],a)=[xa]$，有 $L(M_R) = A$</p>
+</li>
+</ul>
+<p><strong>反复横跳</strong>：</p>
+<ul>
+<li>$R_{M_R}=R$，R 是 <code>Myhill-Nerode</code> 关系</li>
+<li>$M_{R_M}$ 同构于 $M$，M 是 FA</li>
+</ul>
+<blockquote>
+<p>等价关系 $R_A$：$xR_Ay:\forall z\in\Sigma^*,xz\in A \lrarr yz \in A$. $R_A$ 右不变、细分 A </p>
+</blockquote>
+<p><strong>Myhill-Nerode定理</strong>：</p>
+<ul>
+<li>正规集有一个 <code>Myhill-Nerode</code> 关系 $R_M$</li>
+<li>若 A 有 <code>Myhill-Nerode</code> 关系，则 $R_A$ 有有穷指数</li>
+<li>若 $R_A$ 有有穷指数，则$R_A$ 是 $Myhill-Nerode$ 关系，构造 $M_{R_A}$ 接受 A</li>
+</ul>
+<p>$M_{R_A}$ 是状态数最少的。</p>
+<h3 id="归纳：判定某个集合不是正规集"><a href="#归纳：判定某个集合不是正规集" class="headerlink" title="归纳：判定某个集合不是正规集"></a>归纳：判定某个集合不是正规集</h3><ul>
+<li>缩胀定理</li>
+<li>利用封闭运算</li>
+<li>集合的关系 $R_A$ 没有有穷指数</li>
+</ul>
+<h2 id="上下文无关文法、下推自动机（讲义第五、六章，MIT教材第二章）"><a href="#上下文无关文法、下推自动机（讲义第五、六章，MIT教材第二章）" class="headerlink" title="上下文无关文法、下推自动机（讲义第五、六章，MIT教材第二章）"></a>上下文无关文法、下推自动机（讲义第五、六章，MIT教材第二章）</h2><h3 id="化简-CFG"><a href="#化简-CFG" class="headerlink" title="化简 CFG"></a>化简 CFG</h3><blockquote>
+<p>无用符号：$X\in V\cup T$ 但 $X$ 不出现在 S 派生出的字符串中；$X\in V$ 但 X 不能派生任何终结符号串</p>
+</blockquote>
+<p>消去无用符号的步骤：</p>
+<ul>
+<li>先消去 (2) 类无用符号（引理5.1）：构造新的 $V’$ ，若生成式 $A\rarr X_1X_2…X_n$ 右侧的每一 $X_i \in T^*\cup V’$，则把 A 加到 $V’$ 中。</li>
+<li>再消去 (1) 类无用符号（引理5.2）：构造新的 $V’$ 和 $T’$，首先将 S 放入 $V’$ 中，若某个生成式左侧的变元属于 $V’$，则将该生成式右侧的变元放入 $V’$ 中，终结符放入 $T’$ 中。</li>
+</ul>
+<blockquote>
+<p>变元 A 可为零：A 可以派生空串</p>
+<p>$\epsilon$-生成式：右端为空</p>
+</blockquote>
+<p>消去 $\epsilon$-生成式（使 $L(G’) = L(G) -{\epsilon}$）的步骤：</p>
+<ul>
+<li>确定可为零的变元集 Z：先把直接派生空串的变元放入 Z 中，然后检查右侧全为变元的生成式，若右侧变元全在 Z 中，则把该生成式左侧变元放入 Z 中。</li>
+<li>构造新的生成式集合 $P’$：对 $P$ 中所有生成式，检查右侧的每一个符号，如果不属于 Z 则不改变，属于 Z 则改为 $\epsilon$ 或不改变（不改变的情况是防止修改后右侧全为 $\epsilon$）。</li>
+<li>消去无用符号</li>
+</ul>
+<blockquote>
+<p>单一生成式：左右端皆为一个变元</p>
+</blockquote>
+<p>不含空串的 CFL，消去单一生成式的步骤：</p>
+<ul>
+<li>构造新的生成式集合 $P’$：先将 $P$ 中非单一生成式放入 $P’$，对单一生成式 $A\rarr B$，如果 $B\rarr \alpha$ 是 $P’$ 中元素，则将 $A\rarr \alpha$ 放入 $P’$。</li>
+<li>消去无用符号</li>
+</ul>
+<h3 id="CFG-范式"><a href="#CFG-范式" class="headerlink" title="CFG 范式"></a>CFG 范式</h3><blockquote>
+<p><code>Chomksky</code> 范式：每个生成式右侧为两个变元或一个终结符</p>
+</blockquote>
+<p>不含空串的 CFL 转为 <code>Chomsky</code> 范式的步骤：</p>
+<ul>
+<li>消去单一生成式、$\epsilon$-生成式和无用符号</li>
+<li>如果某生成式右侧只有一个符号，则它一定是终结符</li>
+<li>如果某生成式 $p$ 右侧同时包含变元和终结符，则对每个终结符 $a$，添加变元 $C_a$ 和生成式 $C_a \rarr a$ ，用这个变元替换掉 $p$ 右侧的对应终结符</li>
+<li>此时，所有生成式除去形如 $A\rarr a$ 的，其他生成式右侧不含终结符。如果某个生成式仅包含 $m(m\ge 2)$ 个变元，则添加 $m-2$ 个变元和若干个生成式，使每个生成式右侧仅含2个变元。如 $A\rarr B_1B_2B_3$ 可拆成 $A\rarr B_1D_1, D_1 \rarr B_2B_3$</li>
+</ul>
+<blockquote>
+<p><code>Greibach</code> 范式：每个生成式右侧的第一个符号为终结符</p>
+</blockquote>
+<p>不含空串的 CFL 转为 <code>Greibach</code> 范式的步骤：</p>
+<ul>
+<li>转为 <code>Chomsky</code> 范式</li>
+<li>对变元进行编号。保证每个形如 $A_k \rarr A_j\alpha$ 生成式右侧的第一个变元编号 $A_j$ 大于左侧变元，如果不大于则用已检查过的 $A_j \rarr A_m\alpha$ 替换，这样右侧第一个变元的编号严格递增，这一步可以在有限次数内完成。如果遇到 $A_k \rarr A_k\alpha$ 则加入新的生成式 $B_k \rarr \alpha,\ B_k \rarr \alpha B_k,\ A_k \rarr \beta B_k$，对一切已有的 $A_k \rarr \beta$</li>
+<li>处理 $A_i \rarr A_j \gamma\ ,j&gt;i$。左部变元编号从大到小开始处理：编号为最大时，生成式右侧第一个符号必为终结符；其他情况，右侧第一个变元用已有生成式代入，代入后编号递增，达到编号最大时，再代入一次，右侧第一个符号也变为终结符。</li>
+<li>处理以新加入的 $B_i$ 变元为左部的生成式。其右侧第一个符号只可能是是终结符或 $A_j$，出现后者时再做一次编号递增即可。</li>
+</ul>
+<h3 id="下推自动机"><a href="#下推自动机" class="headerlink" title="下推自动机"></a>下推自动机</h3><blockquote>
+<p>下推自动机 PDA 是七元组 $(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$，比 DFA 多了 $\Gamma$ 有穷的栈符号表，$Z_0$ 栈底符号。</p>
+<p>转移函数的形式是 $\delta(q,a,Z) = {(p_1,\gamma_1),…,(p_m,\gamma_m)}$，表示当状态为 q，读入字符 a，且栈顶为 Z 时，将状态改为 p，栈顶改为 $\gamma$。</p>
+<p>瞬时描述 ID 是三元组 $(q,w,\gamma)$，w 为未读过的输入，$\gamma$ 为栈中符号串（左侧为栈顶）。$(p_1,\gamma_1) \in \delta(q,a,Z)$ 可表示为 $(q,aw,Z\alpha) \vdash (p_1, w, \gamma_1\alpha)$</p>
+<p>L(M) 是 M 按终结状态方式接受的语言，N(M) 是 M 按空栈方式接受的语言。它们是等价的。</p>
+</blockquote>
+<p>已知 $M_1$， 构造 $M_2$ 使 $L(M_1) = N(M_2)$：</p>
+<ul>
+<li>添加两个状态 $q_e, q_0’$，$q_e$为接受完毕并准备清空栈，$q_0’$为新的初始状态。添加栈符号 $X_0$ 作为栈底符号</li>
+<li>初始：$\delta’(q_0,\epsilon,X_0)={(q_0,Z_0X_0)}$，$Z_0$ 为 $M_1$ 栈底符号</li>
+<li>终结：$\delta’(q,\epsilon,Z)包含(q_e,\epsilon)$，当 q 是终结状态，并清空栈：$\delta’(q_e,\epsilon,Z)={(q_e,\epsilon)}$</li>
+</ul>
+<p>已知 $M_1$， 构造 $M_2$ 使 $N(M_1) = L(M_2)$：</p>
+<ul>
+<li>添加新的初始状态、终结状态、栈底符号</li>
+<li>初始：状态改为 $M_1$ 的初始状态，将 $M_1$ 的栈底符号压入栈</li>
+<li>终结：当栈顶符号为 $M_2$ 栈底符号是，说明栈为空，如果没有输入了，就转至终结状态</li>
+</ul>
+<p>已知 CFL L，构造 PDA M 使 $L = N(M)$：</p>
+<ul>
+<li>若 L 接受空串，则加上 $\delta(q,\epsilon,S) = {(q,\epsilon)}$</li>
+<li>除去空串，设 G 为产生 L 的 <code>Greibach</code> 文法，构造转移函数：若 $A\rarr a\gamma\in P$ 则 $\delta(q,a,A) 包含 (q,\gamma)$</li>
+</ul>
+<p>已知 PDA M， 构造 CFL L 使 $L=N(M)$：</p>
+<ul>
+<li>构造 $V={[q,A,p]|q,p\in Q,A\in\Gamma}\cup{S}$</li>
+<li>初始：$S\rarr [q_0,Z_0,q], q \in Q$</li>
+<li>当 $\delta(q,a,A)包含(q_1,B_1B_2…B_m)$ 则有 $[q,A,q_{m+1}]\rarr a[q_1,B_1,q_2][q_2,B_2,q_3]…[q_m,B_m,q_{m+1}]$。</li>
+</ul>
+<h3 id="缩胀定理-1"><a href="#缩胀定理-1" class="headerlink" title="缩胀定理"></a>缩胀定理</h3><blockquote>
+<p>基础版：</p>
+<p>$\forall k\ge 0,\exist z\in L, |z| \ge k, z = uvwxy, |vx|\ge 1,|vwx|\le k, \exist i \ge 0, uv^iwx^iy \notin L$， 则 L 不是 CFL。</p>
+</blockquote>
+<p>步骤：</p>
+<ul>
+<li>拆成5份</li>
+<li>中间部分不超过k，要扩展的部分不都为空</li>
+<li>将第2、4部分进行复制，或删除</li>
+</ul>
+<blockquote>
+<p><code>Ogden</code> 定理：</p>
+<p>若 L 是 CFL，存在 $k\ge 0$，对每个 $z\in L, z=uvwxy$，在 z 中标出 $\ge k$ 个特别符号，使：vx 至少包含一个特别符号、vwx 最多包含 k 个特别符号。</p>
+</blockquote>
+<p>CFL 在并、连接、闭包运算下封闭，在交、补运算下不封闭（不可判定）。</p>
+<p>CFG 接受的语言是否为空、是否有穷的问题可判定。</p>
+<p>成员资格问题的 CYK 算法：</p>
+<ul>
+<li>将 CFG 转为 <code>Chomsky</code> 范式。记 $x_{ij}$ 为 $x.substr(i,j)$。</li>
+<li>判别 $x_{ij}$ 可由哪些变元派生，从 $j=1\ to\ n$ 依次判别。<ul>
+<li>当 j = 1 时，可由生成式得出。</li>
+<li>当 j &gt; 1 时，A 可派生出 $x_{ij}$，当且仅当 $\exist A\rarr BC$ 且 B 派生 $x_{ij}$ 的前一段，C 派生 $x_{ij}$ 的后一段。</li>
+</ul>
+</li>
+</ul>
+<h2 id="图灵机、递归集、不可判定性（讲义第七、八章）"><a href="#图灵机、递归集、不可判定性（讲义第七、八章）" class="headerlink" title="图灵机、递归集、不可判定性（讲义第七、八章）"></a>图灵机、递归集、不可判定性（讲义第七、八章）</h2><blockquote>
+<p>确定的单带图灵机 TM 是9元组 $(Q,\Sigma,\Gamma,左端标记,空白符号,\delta,初始状态,接受状态,拒绝状态)$</p>
+<p>$\delta(p,a)=(q,b,R)$</p>
+<p>瞬时描述 ID 为 $\alpha_1 q \alpha_2$，（读写头左侧，状态，读写头及其右侧）</p>
+<p>完全的图灵机：对一切输入都能停机</p>
+<p>图灵机接受的语言：递归可枚举集（r.e.）</p>
+<p>完全图灵机接受的语言：递归集</p>
+</blockquote>
+<h3 id="图灵机的构造技术"><a href="#图灵机的构造技术" class="headerlink" title="图灵机的构造技术"></a>图灵机的构造技术</h3><ul>
+<li>有限控制器中的存储：状态可以是 n 元组</li>
+<li>移动：将带上符号吸收到状态上</li>
+<li>多道技术：每个带符号是 n 元组</li>
+<li>查讫符号：带符号是2元组 (字符，标记)</li>
+<li>子程序技术<ul>
+<li>调用：转到子程序的初始状态</li>
+<li>返回：到达子程序的返回状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="图灵机的类型"><a href="#图灵机的类型" class="headerlink" title="图灵机的类型"></a>图灵机的类型</h3><ul>
+<li>双向无限带</li>
+<li>多带</li>
+<li>非确定</li>
+<li>双栈</li>
+<li>带字母最少</li>
+<li>枚举器</li>
+</ul>
+<h3 id="递归集与不可判定问题"><a href="#递归集与不可判定问题" class="headerlink" title="递归集与不可判定问题"></a>递归集与不可判定问题</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>递归集</th>
+<th>递归可枚举</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>补</td>
+<td>封闭</td>
+<td>如果 L 和 L 的补是递归可枚举的，它们是递归的</td>
+</tr>
+<tr>
+<td>并</td>
+<td>封闭</td>
+<td>封闭</td>
+</tr>
+<tr>
+<td>交</td>
+<td>封闭</td>
+<td>封闭</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>通用图灵机 U 是能模拟任何图灵机的图灵机</p>
+<p>$L(U)={M#x|x\in L(M)}$，#为分隔符</p>
+</blockquote>
+<p>任意给定的 TM M 对任意给定的输入串 x 是否停机的问题是不可判定的。</p>
+<p>对任意给定的 TM M 和输入串 x，M 是否接受 x 的问题是不可判定的。</p>
+<p>给定一个 TM M，它是否接受空串的问题是不可判定的。</p>
+<blockquote>
+<p>A 到 B 的<strong>归约</strong>：存在函数 f，$x\in A \lrarr f(x) \in B$，记 $A\le_m B$，m 表明归约是多对一的。</p>
+</blockquote>
+<p>若 $A\le_m B$：</p>
+<ul>
+<li>B 是 r.e. =&gt; A 是 r.e.</li>
+<li>B 是递归集 =&gt; A 是递归集</li>
+</ul>
+<blockquote>
+<p><strong>性质</strong> 是一个映射：定义域是 $\Sigma^*$ 的 r.e. 子集，值域是 {True, False}</p>
+<p>平凡性质：映射只取 True 或 False</p>
+</blockquote>
+<p>Rice 定理：r.e. 集合类的任一非平凡性质都是不可判定的。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/AcceptedHelper/categories/%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/">计算理论基础</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/AcceptedHelper/2021/05/22/MallocLab/">
+                        <span class="hidden-mobile">Malloc Lab 动态内存分配器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.lazyComments('comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FDU19CS/Comments_utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     FDU <i class="iconfont icon-love"></i> 19CS 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/AcceptedHelper/js/debouncer.js" ></script>
+<script  src="/AcceptedHelper/js/events.js" ></script>
+<script  src="/AcceptedHelper/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/AcceptedHelper/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+  <script  src="/AcceptedHelper/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/AcceptedHelper/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/AcceptedHelper/js/boot.js" ></script>
+
+
+</body>
+</html>
