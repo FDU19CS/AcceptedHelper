@@ -1,7 +1,7 @@
 ---
 title: Linux 动态内存分配机制详解
 date: 2021-05-21 21:11:27
-index_img: https://tuapi.eees.cc/api.php?category=fengjing
+index_img: https://img0.baidu.com/it/u=3798217922,3880088897&fm=253&fmt=auto&app=120&f=JPEG?w=889&h=500
 category: [ICS]
 tags: [Malloc, VM]
 ---
