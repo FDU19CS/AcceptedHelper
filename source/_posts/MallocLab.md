@@ -1,7 +1,7 @@
 ---
 title: Malloc Lab 动态内存分配器
 date: 2021-05-22 22:58:57
-index_img: /img/ICS_Lab1/top.jpg
+index_img: https://tuapi.eees.cc/api.php?category=fengjing
 category: [ICS]
 tags: [Malloc, VM]
 ---
