@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>实习分享(第五弹)</title>
+    <link href="/AcceptedHelper/2022/04/15/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E4%BA%94%E5%BC%B9)/"/>
+    <url>/AcceptedHelper/2022/04/15/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E4%BA%94%E5%BC%B9)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="实习分享-第五弹"><a href="#实习分享-第五弹" class="headerlink" title="实习分享(第五弹)"></a>实习分享(第五弹)</h1><h2 id="编者按"><a href="#编者按" class="headerlink" title="编者按"></a>编者按</h2><p>欢迎大家来到19CS的实习分享会，从4月11日起，将会每天更新一位同学的面试经历和经验，也欢迎大家积极投稿。</p><h2 id="2022暑期实习整理"><a href="#2022暑期实习整理" class="headerlink" title="2022暑期实习整理"></a>2022暑期实习整理</h2><p>所有的面试岗位都是Java开发实习生。</p><h3 id="投递公司："><a href="#投递公司：" class="headerlink" title="投递公司："></a>投递公司：</h3><p>蚂蚁（base上海、杭州），携程（base上海），美团（base上海），恒生电子（杭州）</p><h3 id="选择公司的原因"><a href="#选择公司的原因" class="headerlink" title="选择公司的原因"></a>选择公司的原因</h3><p>选择蚂蚁和恒生电子的原因很简单，因为想要去了解金融科技领域。蚂蚁有支付宝，恒生是金融科技公司。携程和美团我看中的是生活服务领域（携程的票务和美团的生活领域）。另一方面携程是Apoll开源项目的主要贡献者，去感受一下他们的注册配置中心也是不错的。。。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>无脑跟着java开发的路线走。我没有实验室，没有导师，没有科研，因此走开发的路似乎会轻松一些，因为这条路上，大家都缺少经验。直到上个寒假前，我也是没有任何开发技术的，算法不行，绩点拉胯，考研没兴趣，一切似乎都比较未知。但是上个寒假开始学习Java开发路线的一些基本常识框架，从Java web到Spring，再到Spring开发流程的各种各样的组件学习，比如SpringBoot，SpringCloud（springcloud是一堆组件构成的，东西比较多），之后学习了docker容器技术，方便搭建集群以及各种各样的工具的管理。。。。反正就是一堆，然后我抱着试一试的心态去进行面试。</p><h3 id="投递简历"><a href="#投递简历" class="headerlink" title="投递简历"></a>投递简历</h3><p>本人基本是通过官方渠道。有人关心内推的问题，我个人觉得是否内推无所谓，因为大部分企业内推只能帮你过简历关，实际上“复旦大学”已经足够帮你过简历关了。</p><h3 id="面经"><a href="#面经" class="headerlink" title="面经"></a>面经</h3><h4 id="蚂蚁-数字金融线"><a href="#蚂蚁-数字金融线" class="headerlink" title="蚂蚁-数字金融线"></a>蚂蚁-数字金融线</h4><p>第一场面试，准备不够充分，一面挂了。通过复盘，这是因为简历中写了很多技术点，但是这些技术点并没有准备充分，导致回答的时候不够好。</p><ul><li>简单介绍项目</li><li>项目中用了mybatis，询问mybatis<ul><li>mybatis二级缓存</li><li>底层连接数据库的原理（我当时直接答JDBC，但没讲到后面的sqlSession相关，因此没有得到正面反馈）</li></ul></li><li>mysql<ul><li>事务各种隔离级别</li><li>mysql主从复制</li></ul></li><li>算法题<ul><li>反转链表</li></ul></li></ul><h4 id="蚂蚁-支付宝事业线"><a href="#蚂蚁-支付宝事业线" class="headerlink" title="蚂蚁-支付宝事业线"></a>蚂蚁-支付宝事业线</h4><p>目前已经面完hr面</p><h5 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h5><ul><li>自我介绍，项目</li><li>你如何解决困难技术问题的</li><li>Java ArrayList中删除所有满足某特定条件的元素的方法（iteration）</li><li>大数据量如何多次寻找topK（答：扔到数据库维护一个视图）<ul><li>反问还有解决方法吗</li><li>答，使用redis的有序集合维护，balabala。。。</li></ul></li><li>两个表，一个表大量数据，一个表少量数据，怎么求他们的交集？</li><li>剩下的问题忘了，就先这样吧</li></ul><h5 id="一试加面笔试（写了一道编程题，注意：编程题不是算法题）"><a href="#一试加面笔试（写了一道编程题，注意：编程题不是算法题）" class="headerlink" title="一试加面笔试（写了一道编程题，注意：编程题不是算法题）"></a>一试加面笔试（写了一道编程题，注意：编程题不是算法题）</h5><ul><li>写一个模型，这个模型需要管理多个服务器，用户可以在多个服务器（A，B，C，…）进行login操作，每次login都会向这个模型发送用户在哪一台服务器进行的，并且计数。你需要写一个函数，这个函数在每分钟对每台服务器的login次数进行排序。（考察点：线程安全，模型优化等等）。</li><li>我自己的思路是用executor的schdule调度管理，fixed_rate设置为1分钟，然后存放login次数的结构是哈希表，每个元素是一个LongAdder，保证线程安全，同时分段锁的时候提高效率。（应该有其他优化方法，虽然scheduledAtFixedRate拉胯，但是我只知道这个。。。。）</li></ul><h5 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h5><p>突击面试，没有任何通知，直接一个电话打来说有时间吗，我们直接开面。我当时还在摆大烂。。。</p><p>基本没问啥，就批评了一下我项目太简单。我垃圾crud项目确实没啥亮点，我反驳接触开发时间不长，没有足够的时间沉淀技术</p><ul><li>发展方向？</li><li>对技术底层有没有热情（我答源码会看，但是伤脑，如果有前辈引领，我会有更大的信心与动力）</li><li>我看你实际开发经验缺乏，你有没有了解JVM的模型？</li><li>base地杭州，你可以吗？</li></ul><h5 id="hr面"><a href="#hr面" class="headerlink" title="hr面"></a>hr面</h5><p>也是突击面试，下午5点说可以立即面试吗？我说接下来有课，8点以后可以。</p><p>本来以为二面被嫌弃了一顿基本凉了，没想到进下一面了。</p><ul><li>自我介绍</li><li>压力最大时候</li><li>选择最艰难的时候</li><li>讲一下你通过项目学到了什么</li><li>。。。一些和技术毫不相干的东西</li></ul><h4 id="携程"><a href="#携程" class="headerlink" title="携程"></a>携程</h4><h5 id="一面-1"><a href="#一面-1" class="headerlink" title="一面"></a>一面</h5><p>基本都是八股，去牛客网上看看吧。</p><h4 id="二面-1"><a href="#二面-1" class="headerlink" title="二面"></a>二面</h4><p>稍微讲讲，基本都是针对项目问，问到你不会为止。比如我提到项目中mysql直接在text中存放json数据。面试官问text字段有没有字数限制，有问有没有其他解决思路，我回答可以转型mongodb，因为mongdb自带json存储。面试官反问，技术栈转型会带来什么问题？我tm咋知道，我就说了增加学习成本，可能出现意想不到的bug。面试官反问什么bug，，，反正给我整不会了。</p><p>提到spring和springboot，询问这两个的区别。我只答到springboot的autoconfiguration用于简化配置，“约定大于配置”的原则，不指定直接使用默认的，指定使用个性化的。主要强调sb是配置工具类，而spring时一个大框架，在spring中我们使用配置文件或者注解驱动进行Springbean的管理。</p><p>问到redis的缓存穿透和缓存击穿，以及他们的解决思路。</p><p>之后问了一下你最近在看什么书，喜欢读什么类型的书，你有什么爱好。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>实习分享</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>匿名</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>实习分享(第四弹)</title>
+    <link href="/AcceptedHelper/2022/04/14/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E5%9B%9B%E5%BC%B9)/"/>
+    <url>/AcceptedHelper/2022/04/14/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E5%9B%9B%E5%BC%B9)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="实习分享-第四弹"><a href="#实习分享-第四弹" class="headerlink" title="实习分享(第四弹)"></a>实习分享(第四弹)</h1><h2 id="编者按"><a href="#编者按" class="headerlink" title="编者按"></a>编者按</h2><p>欢迎大家来到19CS的实习分享会，从4月11日起，将会每天更新一位同学的面试经历和经验，也欢迎大家积极投稿。</p><h2 id="面经分享"><a href="#面经分享" class="headerlink" title="面经分享"></a>面经分享</h2><h3 id="一、面试前的准备"><a href="#一、面试前的准备" class="headerlink" title="一、面试前的准备"></a>一、面试前的准备</h3><p>1、 自身基本情况（成绩/项目/实验室/实习等）<br>成绩中等，没有项目，未进实验室，没有实习经历；</p><p>2、 投了哪几个公司，具体职位，如何了解到这个机会的<br>只尝试投了ByteDance，后端研发，通过朋友圈推文</p><p>3、 面试之前准备了些什么（算法、OS等）<br>背了些八股文，刷了几道字节之前考过的题</p><p>4、 简历大概如何准备的<br>网上搜索“实习小白如何准备技术岗简历”，照猫画虎</p><p>5、 是否提前对该公司或岗位有过了解<br>了解过公司福利很好，其余不了解</p><p>6、 是否已经有过面试经验<br>否，第一次面试，紧张极了</p><h3 id="二、面试过程"><a href="#二、面试过程" class="headerlink" title="二、面试过程"></a>二、面试过程</h3><p>1、面试的方式和地点<br>视频面试+被推迟到第二天17:00-18:00</p><p>2、面试当天的穿着、随身物品、自我介绍等<br>穿着整洁但是随意+自我介绍100字非常简洁</p><p>3、现场被问了哪些问题（笔试、问答等都可以）<br>当我告诉他我第一次面试之后他就只问我简历上提到的知识点（比如：DB的索引，OS的内存管理，CN的TCP/UDP）</p><h3 id="三、面试结果"><a href="#三、面试结果" class="headerlink" title="三、面试结果"></a>三、面试结果</h3><p>1、面试是否成功<br>不成功</p><p>2、回顾：自己有哪些做的好或者不好的地方，自己成功或者失败的关键原因是什么<br>算法题太拉了</p><p>3、不同公司/岗位面试的共同点和不同点（难度、侧重点等）<br>不详</p><p>4、对大家提一些建议吧：如何才能顺利通过面试<br>多刷题，大家基础知识都很好了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>实习分享</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>煜格</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>实习分享(第三弹)</title>
     <link href="/AcceptedHelper/2022/04/13/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E4%B8%89%E5%BC%B9)/"/>
     <url>/AcceptedHelper/2022/04/13/%E5%AE%9E%E4%B9%A0%E5%88%86%E4%BA%AB(%E7%AC%AC%E4%B8%89%E5%BC%B9)/</url>
